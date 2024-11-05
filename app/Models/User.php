@@ -29,15 +29,15 @@ class User extends Authenticatable
      * getLastActiveLink
      *
      * @access public
-     * @return Link
+     * @return ?Link
      */
-    public function getLastActiveLink(): Link
+    public function getLastActiveLink(): ?Link
     {
         return $this->hasOne('App\Models\Link')
             ->where([['is_active', true]])
             ->latest()
             ->first();
-    }
+    } // End function getLastActiveLink
 
     /**
      * generateLink

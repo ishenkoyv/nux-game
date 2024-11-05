@@ -39,7 +39,9 @@ install: up ## Install application dependencies into application container
 init: install ## Make full application initialization (install, seed, build assets, etc)
 	$(docker_compose_bin) exec "$(APP_CONTAINER_NAME)" php artisan migrate --force --no-interaction -vvv
 	$(docker_compose_bin) exec "$(APP_CONTAINER_NAME)" php artisan db:seed --force -vvv
-	$(docker_compose_bin) run --rm "$(NODE_CONTAINER_NAME)" npm run dev
+	$(docker_compose_bin) exec "$(APP_CONTAINER_NAME)" chown -R www-data:www-data /var/www/storage
+	$(docker_compose_bin) exec "$(APP_CONTAINER_NAME)" chmod -R 775 /var/www/storage /var/www/bootstrap/cache
+	$(docker_compose_bin) run --rm "$(NODE_CONTAINER_NAME)" npm run dev --force
 
 test: up ## Execute application tests
 	$(docker_compose_bin) exec -T "$(APP_CONTAINER_NAME)" composer test

@@ -14,6 +14,7 @@
 - `git clone https://ishenkoyv@bitbucket.org/85931210/nux-game.git`
 - `cd nux-game`
 - `make init`
+- `CTRL + C`
 
 ### Run tests
 - `make test`
